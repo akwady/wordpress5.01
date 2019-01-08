@@ -297,3 +297,28 @@ function epal_posts_useronly( $wp_query ) {
 }
 add_filter('parse_query', 'epal_posts_useronly' );
 
+// Bỏ Javascript mặc định wordpress tạo ra trên theme
+add_action( 'wp_enqueue_scripts', function () {
+   wp_deregister_script( 'jquery' );
+   wp_deregister_script( 'wp-embed' );
+});
+
+// Bỏ các thẻ trên Header website được WordPress tự động sinh ra
+add_action( 'init', function () {
+ // Bỏ RSD link (Really Simple Discovery)
+  remove_action( 'wp_head', 'rsd_link' );
+ // Bỏ Wlwmanifest link (Windows Live Writer manifest)
+  remove_action( 'wp_head', 'wlwmanifest_link' );
+ // Bỏ feeds
+  remove_action( 'wp_head', 'feed_links', 2 );
+ // Bỏ extra feeds, such as category feeds
+  remove_action( 'wp_head','feed_links_extra', 3 );
+ // Bỏ displayed XHTML generator
+  remove_action( 'wp_head', 'wp_generator' );
+ // Bỏ REST API link tag
+  remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+  // Bỏ oEmbed discovery links.
+  remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+  // Bỏ rel next/prev links
+  remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
+});
