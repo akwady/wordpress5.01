@@ -286,7 +286,14 @@ add_filter('widget_text', 'php_text', 99);
 
 
 
+// Functions chỉ hiển thị cho Author các Post của của mình
+function epal_posts_useronly( $wp_query ) {
+    if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
+        if ( !current_user_can( 'level_10' ) ) {
+            global $current_user;
+            $wp_query->set( 'author', $current_user->id );
+        }
+    }
+}
+add_filter('parse_query', 'epal_posts_useronly' );
 
-
-
-?>

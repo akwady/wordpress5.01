@@ -45,13 +45,11 @@ function catchuoi($chuoi, $gioihan){
 }
 
 //Add SVG Vào WP-admin
-function dvb_custom_mime_types($mimes) {
+function cc_mime_types( $mimes ){
     $mimes['svg'] = 'image/svg+xml';
     return $mimes;
 }
-add_filter('upload_mimes', 'dvb_custom_mime_types');
-
-
+add_filter( 'upload_mimes', 'cc_mime_types' );
 
 
 //Add Css Thay Đổi Trang wp-login wordpress
